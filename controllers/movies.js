@@ -54,7 +54,7 @@ module.exports.deleteMovie = (req, res, next) => {
   Movie.findOne({ movieId: req.params.movieId })
     .orFail(new NotFoundError('Фильм не найден'))
     .then((movie) => {
-      if (movie.owner.toString() !== req.user._id) {
+      if (movie.owner.toString() !== req.user._id.toString()) {
         throw new ForbiddenError('Вы не являетесь владельцем фильма');
       }
       return Movie.deleteOne(movie);

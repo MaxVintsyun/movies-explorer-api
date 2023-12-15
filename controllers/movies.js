@@ -57,7 +57,7 @@ module.exports.deleteMovie = (req, res, next) => {
       if (movie.owner.toString() !== req.user._id) {
         throw new ForbiddenError('Вы не являетесь владельцем фильма');
       }
-      return Movie.deleteOne(movie);
+      return Movie.deleteMany(movie);
     })
     .then((movie) => res.status(200).send(movie))
     .catch((err) => next(throwMovieError(err)));
